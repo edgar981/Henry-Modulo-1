@@ -13,25 +13,34 @@ function BinarySearchTree(value) {
    this.value = value;
    this.left = null;
    this.right = null;
+   this._length = 0;
 }
 
 BinarySearchTree.prototype.insert = function (value){
-   if (this.left !== null && value < this.value){
+   if (value < this.value){
+      if (this.left) {
          this.left.insert(value);
-      } else if (this.left === null && value < this.value){
+      } else {
          this.left = new BinarySearchTree(value);
-      } else if (this.right !== null && value >= this.value){
+      }
+   } else if (value >= this.value){
+      if (this.right) {
          this.right.insert(value);
       } else {
          this.right = new BinarySearchTree(value);
       }
+   }
 }
-
 BinarySearchTree.prototype.size = function (){
-   let sais = 0;
+   if (!this.left && !this.right){
+      return 1;
+   }
 
-   re
+   if (!this.left) return 1 + this.right.size();
+   if (!this.right) return 1 + this.left.size();
+   if (this.right && this.left) return 1 + this.left.size() + this.right.size();
 }
+
 
 BinarySearchTree.prototype.contains = function (value){
    if (this.value === value) {
@@ -44,7 +53,42 @@ BinarySearchTree.prototype.contains = function (value){
    return false;
 }
 
-BinarySearchTree.prototype.depthFirstForEach = function (){}
+BinarySearchTree.prototype.depthFirstForEach = function (cb, str){
+   var miArr = [];
+
+   switch(str) {
+      case "pre-order":
+         cb(this.value);
+         if (this.left !== null) {
+            this.left.depthFirstForEach(cb, str);  //Recorriendo in order, VLR
+         }
+         if (this.right !== null) {
+            this.right.depthFirstForEach(cb,str);
+         }
+         break;
+
+      case "post-order":
+         if (this.left !== null) {
+            this.left.depthFirstForEach(cb, str);  //Recorriendo post order, LRV
+         }
+         if (this.right !== null) {
+            this.right.depthFirstForEach(cb,str);
+         }
+         cb(this.value);
+
+         break;
+
+      default:
+         if (this.left !== null) {
+            this.left.depthFirstForEach(cb, str);  //Recorriendo in order, LVR
+         }
+         cb(this.value);
+         if (this.right !== null) {
+            this.right.depthFirstForEach(cb,str);
+         }
+         break;
+   }
+}
 
 BinarySearchTree.prototype.breadthFirstForEach = function (){}
 // No modifiquen nada debajo de esta linea
