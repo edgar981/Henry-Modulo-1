@@ -90,7 +90,17 @@ BinarySearchTree.prototype.depthFirstForEach = function (cb, str){
    }
 }
 
-BinarySearchTree.prototype.breadthFirstForEach = function (){}
+BinarySearchTree.prototype.breadthFirstForEach = function (cb, pend){
+   if (!pend) {
+      var pend = [];
+   }
+   cb(this.value);
+
+   if (this.left) pend.push(this.left);
+   if (this.right) pend.push(this.right);
+
+   if (pend.length) pend.shift().breadthFirstForEach(cb, pend);
+}
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
