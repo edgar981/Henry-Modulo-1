@@ -81,3 +81,4 @@ En este punto puedes comenzar a codear, verás instrucciones dentro del archivo 
 
 -  **[Closures](https://developer.mozilla.org/es/docs/Web/JavaScript/Closures)**
 -  **[Método bind](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)**
+# HENRY-M1
