@@ -21,7 +21,6 @@ function nFactorial(n) {
     var fact = 1;
     fact *= n*(n-1);
     n--;
-    console.log(n)
     return nFactorial(n-1)
   }
 }
